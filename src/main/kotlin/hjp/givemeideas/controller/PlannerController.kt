@@ -5,10 +5,7 @@ import hjp.givemeideas.dto.ToDoResponse
 import hjp.givemeideas.service.PlannerService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 @RestController("/planner")
@@ -17,23 +14,40 @@ class PlannerController(
 ) {
 
     @PostMapping("/todo")
-    fun createToDoToday(@RequestBody createPlannerDto: CreatePlannerDto): ResponseEntity<ToDoResponse> {
-        return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createToDoToday(createPlannerDto))
+    fun createToDoToday(@RequestBody dto: CreatePlannerDto): ResponseEntity<ToDoResponse> {
+        return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createToDoToday(dto))
     }
 
-//    @PostMapping
-//    fun createToDoWeek(@RequestBody createPlannerDto: CreatePlannerDto){
-//
-//    }
-//
-//    @PostMapping
-//    fun createToDoMonth(@RequestBody createPlannerDto: CreatePlannerDto){
-//
-//    }
+    @PostMapping("/todo/week")
+    fun createToDoWeek(@RequestBody dto: CreatePlannerDto): ResponseEntity<ToDoResponse> {
+        return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createToDoWeek(dto))
+    }
+
+
+    @GetMapping("/planner/today")
+    fun getToDoToday(): ResponseEntity<List<ToDoResponse>> {
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.getTodayToDo())
+    }
+
+    @GetMapping("/planner/week")
+    fun getToDoWeek(): ResponseEntity<List<ToDoResponse>> {
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.getWeekToDo())
+
+    }
+
+    @GetMapping("/planner/month")
+    fun getToDoMonth() {
+        TODO()
+    }
+
+    @GetMapping("/planner/year")
+    fun getToDoYear() {
+        TODO()
+    }
 
     @DeleteMapping
-    fun deleteToDo(){
-
+    fun deleteToDo() {
+        TODO()
     }
 
 }
