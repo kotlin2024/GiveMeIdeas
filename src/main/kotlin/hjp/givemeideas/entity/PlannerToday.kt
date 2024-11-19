@@ -19,13 +19,13 @@ class PlannerToday(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 1
+    var id: Long? = null
 
 }
 
 fun PlannerToday.toResponse(): ToDoResponse {
     return ToDoResponse(
-        id = this.id,
+        id = this.id!!,
         description = this.description,
         createdAt = this.createdAt,
         check = this.check
