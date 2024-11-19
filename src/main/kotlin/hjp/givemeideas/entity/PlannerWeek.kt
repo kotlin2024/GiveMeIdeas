@@ -16,13 +16,13 @@ class PlannerWeek(
     val createdAt: LocalDate = LocalDate.now()
 ) {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long = 1
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null
 }
 
 fun PlannerWeek.toResponse(): ToDoResponse {
     return ToDoResponse(
-        id = this.id,
+        id = this.id!!,
         description = this.description,
         check = this.check,
         createdAt = this.createdAt
