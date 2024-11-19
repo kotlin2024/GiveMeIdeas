@@ -1,4 +1,4 @@
-package infra.SwaggerConfig
+package hjp.givemeideas.infra.swagger
 
 import io.swagger.v3.oas.models.Components
 import io.swagger.v3.oas.models.OpenAPI
