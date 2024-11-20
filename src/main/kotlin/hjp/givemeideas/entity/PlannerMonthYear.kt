@@ -4,27 +4,31 @@ import hjp.givemeideas.dto.ToDoResponse
 import jakarta.persistence.*
 import java.time.LocalDate
 
-@Entity(name = "plannerWeek")
-class PlannerWeek(
-    @Column(name = "주간 할일")
+@Entity(name = "planner_month_year")
+class PlannerMonthYear(
+
+    @Column(name = "오늘의 할일")
     val description: String,
 
-    @Column(name = "완료 여부")
+    @Column(name = "작성일자")
+    val createdAt: LocalDate = LocalDate.now(),
+
+    @Column(name = "완료여부")
     var check: Boolean = false,
 
-    @Column(name = "생성일")
-    val createdAt: LocalDate = LocalDate.now()
+    @Column(name = "type")
+    val type: String,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    val id: Long? = null
 }
 
-fun PlannerWeek.toResponse(): ToDoResponse {
+fun PlannerMonthYear.toResponse(): ToDoResponse {
     return ToDoResponse(
         id = this.id!!,
         description = this.description,
+        createdAt = this.createdAt,
         check = this.check,
-        createdAt = this.createdAt
     )
 }

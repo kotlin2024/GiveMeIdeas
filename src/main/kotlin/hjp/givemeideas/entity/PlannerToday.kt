@@ -14,7 +14,7 @@ class PlannerToday(
     val createdAt: LocalDate = LocalDate.now(),
 
     @Column(name = "완료여부")
-    val check: Boolean = false
+    var check: Boolean = false
 
 ) {
     @Id

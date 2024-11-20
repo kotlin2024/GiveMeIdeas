@@ -1,6 +1,8 @@
 package hjp.givemeideas.controller
 
+import hjp.givemeideas.dto.CheckingDto
 import hjp.givemeideas.dto.CreatePlannerDto
+import hjp.givemeideas.dto.CreatePlannerMonthYearDto
 import hjp.givemeideas.dto.ToDoResponse
 import hjp.givemeideas.service.PlannerService
 import org.springframework.http.HttpStatus
@@ -23,6 +25,11 @@ class PlannerController(
         return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createToDoWeek(dto))
     }
 
+    @PostMapping("/todo/month_year")
+    fun createToDoMonthYear(@RequestBody dto: CreatePlannerMonthYearDto): ResponseEntity<ToDoResponse> {
+        return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createToDoMonthYear(dto))
+    }
+
 
     @GetMapping("/planner/today")
     fun getToDoToday(): ResponseEntity<List<ToDoResponse>> {
@@ -35,14 +42,20 @@ class PlannerController(
 
     }
 
-    @GetMapping("/planner/month")
-    fun getToDoMonth() {
-        TODO()
+    @GetMapping("/planner/month_year")
+    fun getToDoMonthYear(@RequestParam type: String): ResponseEntity<List<ToDoResponse>> {
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.getMonthYearToDo(type))
     }
 
-    @GetMapping("/planner/year")
-    fun getToDoYear() {
-        TODO()
+    @PatchMapping("/planner/check/today")
+    fun checkTodoToday(@RequestBody dto: CheckingDto): ResponseEntity<ToDoResponse> {
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.checkTodoToday(dto))
+    }
+
+    @PatchMapping("/planner/check/week")
+    fun checkTodoWeek(@RequestBody dto: CheckingDto): ResponseEntity<ToDoResponse> {
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.checkTodoWeek(dto))
+
     }
 
     @DeleteMapping
