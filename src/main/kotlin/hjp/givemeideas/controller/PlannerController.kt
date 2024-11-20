@@ -18,10 +18,10 @@ class PlannerController(
         return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createToDoToday(dto))
     }
 
-//    @PostMapping("/todo/week")
-//    fun createToDoWeek(@RequestBody dto: CreatePlannerDto): ResponseEntity<ToDoResponse> {
-//        return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createToDoWeek(dto))
-//    }
+    @PostMapping("/todo/week")
+    fun createToDoWeek(@RequestBody dto: CreatePlannerDto): ResponseEntity<ToDoResponse> {
+        return ResponseEntity.status(HttpStatus.CREATED).body(plannerService.createToDoWeek(dto))
+    }
 
 
     @GetMapping("/planner/today")
@@ -29,11 +29,11 @@ class PlannerController(
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.getTodayToDo())
     }
 
-//    @GetMapping("/planner/week")
-//    fun getToDoWeek(): ResponseEntity<List<ToDoResponse>> {
-//        return ResponseEntity.status(HttpStatus.OK).body(plannerService.getWeekToDo())
-//
-//    }
+    @GetMapping("/planner/week")
+    fun getToDoWeek(): ResponseEntity<List<ToDoResponse>> {
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.getWeekToDo())
+
+    }
 
     @GetMapping("/planner/month")
     fun getToDoMonth() {

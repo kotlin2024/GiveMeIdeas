@@ -1,4 +1,4 @@
-package hjp.givemeideas.model
+package hjp.givemeideas.model.today
 
 import hjp.givemeideas.entity.PlannerToday
 import hjp.givemeideas.entity.QPlannerToday.plannerToday

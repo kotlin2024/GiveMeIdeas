@@ -17,7 +17,7 @@ class PlannerWeek(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    var id: Long? = null
 }
 
 fun PlannerWeek.toResponse(): ToDoResponse {
