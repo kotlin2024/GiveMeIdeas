@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/img/체크-표시.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/destyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Irish+Grover&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/planner.css">
+    <title> HJP Planner Main page </title>
+</head>
+<body>
+<header>
+    <div class="image-wrapper">
+        <img src="/img/green.jpg" alt="header 이미지">
+        <h1> Planner </h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="일정 작성하기 링크 들어가야함">일정 작성하기</a></li>
+            <li><a href="일정 보러가기">일정 보러가기</a></li>
+            <li><a href="https://hjpkotlin2024.tistory.com/" target="_blank">블로그 바로가기</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div id="planner">
+        <div class="row">
+            <section id="today_plan">
+                <h3> 오늘 일정</h3>
+                <ul id="today_list">
+
+                </ul>
+            </section>
+            <section id="week_plan">
+                <h3> 이번주 일정</h3>
+                <ul id="week_list">
+
+                </ul>
+            </section>
+        </div>
+        <div class="row">
+            <section id="month_plan">
+                <h3> 이번 달 일정</h3>
+                <ul id="month_list">
+
+                </ul>
+            </section>
+            <section id="year_plan">
+                <h3> 이번년도 일정</h3>
+                <ul id="year_list">
+
+                </ul>
+            </section>
+
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <p><small> Made by HJP Contact us :https://hjpkotlin2024.tistory.com/ </small></p>
+</footer>
+
+<script>
+    // 오늘 일정 가져오기
+    fetch('http://localhost:8080/planner/today')
+        .then(response => response.json())
+        .then(data => {
+            const todayList = document.getElementById('today_list');
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item.name;
+                todayList.appendChild(li);
+            });
+        })
+        .catch(error => console.error('Error fetching today\'s to-dos:', error));
+
+    // 이번주 일정 가져오기
+    fetch('http://localhost:8080/planner/week')
+        .then(response => response.json())
+        .then(data => {
+            const weekList = document.getElementById('week_list');
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item.name;
+                weekList.appendChild(li);
+            });
+        })
+        .catch(error => console.error('Error fetching this week\'s to-dos:', error));
+
+    // 이번달 일정 가져오기 (type을 "month"로 지정해서)
+    fetch('http://localhost:8080/planner/month_year?type=month')
+        .then(response => response.json())
+        .then(data => {
+            const monthList = document.getElementById('month_list');
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item.name;
+                monthList.appendChild(li);
+            });
+        })
+        .catch(error => console.error('Error fetching this month\'s to-dos:', error));
+
+    // 이번년도 일정 가져오기 (type을 "year"로 지정해서)
+    fetch('http://localhost:8080/planner/month_year?type=year')
+        .then(response => response.json())
+        .then(data => {
+            const yearList = document.getElementById('year_list');
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item.name;
+                yearList.appendChild(li);
+            });
+        })
+        .catch(error => console.error('Error fetching this year\'s to-dos:', error));
+</script>
+</body>
+</html>
