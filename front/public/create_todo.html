@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/img/체크-표시.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/destyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Irish+Grover&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/create_todo.css">
+    <title>일정 작성하기</title>
+</head>
+<body>
+<header>
+    <div class="image-wrapper">
+        <img src="/img/green.jpg" alt="header 이미지">
+        <h1> Planner </h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="create_todo.html">일정 작성하기</a></li>
+            <li><a href="">일정 보러가기</a></li>
+            <li><a href="https://hjpkotlin2024.tistory.com/" target="_blank">블로그 바로가기</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div id="planner">
+        <section id="todo-form">
+            <h2>일정 작성하기</h2>
+            <form>
+                <div>
+                    <label for="when">WHEN:</label>
+                    <select id="when" name="when">
+                        <option value="" disabled selected>클릭!!</option>
+                        <option value="today">오늘</option>
+                        <option value="week">이번 주</option>
+                        <option value="month">이번 달</option>
+                        <option value="year">이번 년도</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="description">DESCRIPTION:</label>
+                    <textarea id="description" name="description" rows="4" placeholder="일정을 입력하세요"></textarea>
+                </div>
+                <button type="submit" id="submit-btn">SUBMIT</button>
+            </form>
+        </section>
+    </div>
+</main>
+
+<footer>
+    <p><small> Made by HJP Contact us :https://hjpkotlin2024.tistory.com/ </small></p>
+</footer>
+</body>
+</html>

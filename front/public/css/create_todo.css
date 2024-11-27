@@ -1,0 +1,170 @@
+.irish-grover-regular {
+    font-family: "Irish Grover", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.image-wrapper > img {
+    height: 100px;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.image-wrapper {
+    position: relative;
+}
+
+.image-wrapper h1 {
+    position: absolute; /* 부모 요소 기준으로 배치 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: cyan;
+    font-size: 80px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-family: "Irish Grover", system-ui;
+}
+
+
+header nav ul {
+    display: flex;
+    justify-content: space-around;
+    background-color: lightblue;
+    color: darkgreen;
+    font-weight: bold;
+
+    :hover {
+        text-decoration: underline red solid;
+        color: blue;
+        transition-property: background-color;
+        transition-timing-function: ease-in-out;
+    }
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#planner {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+#today_plan {
+
+}
+
+
+#todo-form h2 {
+    text-align: center;
+    font-size: 1.8em;
+    color: #4CAF50;
+}
+
+#todo-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+#todo-form {
+    max-width: 600px; /* 최대 너비 설정 */
+    margin: 40px auto; /* 상하 여백과 가운데 정렬 */
+    padding: 30px;
+    background-color: #f0f8ff; /* 부드러운 배경 색 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    border-radius: 12px; /* 둥근 모서리 */
+}
+
+
+#todo-form label {
+    margin-top: 15px;
+    font-size: 1.1em;
+    color: #333;
+}
+
+#todo-form form {
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    gap: 20px; /* 항목 간 간격 */
+}
+
+#todo-form div {
+    display: flex;
+    align-items: center; /* 수평 정렬 */
+    justify-content: space-between; /* 좌우 정렬 */
+}
+
+#todo-form input,
+#todo-form textarea {
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 1em;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    width: 65%
+}
+
+#todo-form textarea {
+    height: 120px; /* 텍스트 영역 크기 설정 */
+    resize: none; /* 크기 조정 불가 */
+}
+
+#todo-form button {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1.2em;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+#todo-form select {
+    appearance: none; /* 기본 드롭다운 스타일 제거 */
+    -webkit-appearance: none; /* 크롬 및 사파리 브라우저 기본 제거 */
+    -moz-appearance: none; /* 파이어폭스 브라우저 기본 제거 */
+    background-color: #f0f8ff; /* 배경색 추가 */
+    border: 1px solid #ccc; /* 테두리 추가 */
+    border-radius: 5px; /* 둥근 모서리 */
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer; /* 커서를 포인터로 설정 */
+    width: 65%;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3csvg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"%3e%3cpath fill="%23666" d="M7 10l5 5 5-5z"/%3e%3c/svg%3e');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+#todo-form button:hover {
+    background-color: #45a049;
+}
+
+#todo-form select {
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 1em;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+
+body {
+    background: url("../img/leaf_background.jpg")
+}
+
+footer {
+    background-color: burlywood;
+    color: black;
+    text-align: center;
+}
