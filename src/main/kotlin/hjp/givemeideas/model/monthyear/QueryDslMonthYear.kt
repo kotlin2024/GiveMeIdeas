@@ -20,6 +20,7 @@ class QueryDslMonthYear : QueryDslSupport() {
                 planner.type.eq("MONTH"),
                 planner.createdAt.between(startDate, endDate)
             )
+            .where((planner.check.isFalse))
             .fetch()
     }
 
@@ -30,7 +31,8 @@ class QueryDslMonthYear : QueryDslSupport() {
         return queryFactory.selectFrom(planner)
             .where(
                 planner.type.eq("YEAR"),
-                planner.createdAt.between(startDate, endDate)
+                planner.createdAt.between(startDate, endDate),
+                planner.check.isFalse,
             )
             .fetch()
     }

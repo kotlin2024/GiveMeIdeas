@@ -19,6 +19,7 @@ class QueryDslPlannerWeekRepository : QueryDslSupport() {
             .where(
                 plannerWeek.createdAt.between(startOfWeek, endOfWeek) // 날짜 범위 조건
             )
+            .where((plannerWeek.check.isFalse))
             .fetch()
     }
 }

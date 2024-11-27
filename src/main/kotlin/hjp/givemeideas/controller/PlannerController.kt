@@ -48,7 +48,7 @@ class PlannerController(
     }
 
     @PatchMapping("/planner/check/today")
-    fun checkTodoToday(@RequestBody dto: CheckingDto): ResponseEntity<ToDoResponse> {
+    fun checkTodoToday(@RequestBody dto: List<CheckingDto>): ResponseEntity<List<ToDoResponse>> {
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.checkTodoToday(dto))
     }
 

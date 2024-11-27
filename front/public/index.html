@@ -33,6 +33,7 @@
                 <ul id="today_list">
 
                 </ul>
+                <button id="submit-btn" type="button">Submit</button>
             </section>
             <section id="week_plan">
                 <h3> 이번주 일정</h3>
@@ -72,12 +73,56 @@
             const todayList = document.getElementById('today_list');
             data.forEach(item => {
                 const li = document.createElement('li');
-                li.textContent = item.name;
+
+                // 체크박스 생성
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = item.check;
+                checkbox.id = item.id;  // 체크박스에 아이디를 연결
+
+                // 텍스트 노드 생성 (할 일 내용)
+                const textNode = document.createTextNode(` ${item.description}`);
+
+                // 체크박스와 텍스트를 <li>에 추가
+                li.appendChild(checkbox);
+                li.appendChild(textNode);
+
+                // <li>를 <ul>에 추가
                 todayList.appendChild(li);
             });
         })
         .catch(error => console.error('Error fetching today\'s to-dos:', error));
 
+    // 제출 버튼 클릭 시 처리
+    document.getElementById('submit-btn').addEventListener('click', function () {
+        const checkedItems = [];
+        const checkboxes = document.querySelectorAll('#today_list input[type="checkbox"]:checked');
+
+        checkboxes.forEach(checkbox => {
+            checkedItems.push({
+                id: Number(checkbox.id),  // 체크된 항목의 id
+                check: true         // 체크 상태를 true로 설정
+            });
+        });
+
+        // 체크된 항목들을 API로 전송하여 업데이트
+        if (checkedItems.length > 0) {
+            fetch('http://localhost:8080/planner/check/today', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(checkedItems)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("data updates successfully")
+                })
+                .catch(error => console.error('Error updating to-dos:', error));
+        } else {
+            alert('체크한 항목이 없습니다.');
+        }
+    });
     // 이번주 일정 가져오기
     fetch('http://localhost:8080/planner/week')
         .then(response => response.json())
@@ -85,7 +130,7 @@
             const weekList = document.getElementById('week_list');
             data.forEach(item => {
                 const li = document.createElement('li');
-                li.textContent = item.name;
+                li.textContent = item.description;
                 weekList.appendChild(li);
             });
         })
@@ -98,7 +143,7 @@
             const monthList = document.getElementById('month_list');
             data.forEach(item => {
                 const li = document.createElement('li');
-                li.textContent = item.name;
+                li.textContent = item.description;
                 monthList.appendChild(li);
             });
         })
@@ -111,7 +156,7 @@
             const yearList = document.getElementById('year_list');
             data.forEach(item => {
                 const li = document.createElement('li');
-                li.textContent = item.name;
+                li.textContent = item.description;
                 yearList.appendChild(li);
             });
         })

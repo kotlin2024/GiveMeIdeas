@@ -65,6 +65,12 @@ footer {
     gap: 20px;
 }
 
+#planner h3 {
+    color: cyan;
+    font-weight: bold;
+    font-size: 30px;
+}
+
 #today_plan, #week_plan, #month_plan, #year_plan {
     width: 43%;
     height: 200px;
@@ -75,4 +81,12 @@ footer {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: left;
 
+}
+
+input[type= "checkbox"] {
+    width: 16px;
+    height: 16px;
+    vertical-align: baseline;
+    margin-right: 4px;
+    appearance: auto;
 }

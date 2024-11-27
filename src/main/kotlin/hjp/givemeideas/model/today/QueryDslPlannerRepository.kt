@@ -14,6 +14,7 @@ class QueryDslPlannerRepository : CustomPlannerRepository, QueryDslSupport() {
         val today = LocalDate.now()
         return queryFactory.selectFrom(plannerToday)
             .where(plannerToday.createdAt.eq(today))
+            .where((plannerToday.check.isFalse))
             .limit(10) // 결과를 10개로 제한
             .fetch()
     }
