@@ -53,9 +53,16 @@ class PlannerController(
     }
 
     @PatchMapping("/planner/check/week")
-    fun checkTodoWeek(@RequestBody dto: CheckingDto): ResponseEntity<ToDoResponse> {
+    fun checkTodoWeek(@RequestBody dto: List<CheckingDto>): ResponseEntity<List<ToDoResponse>> {
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.checkTodoWeek(dto))
 
+    }
+
+    @PatchMapping("/planner/check/month_year")
+    fun checkTodoMonthYear(
+        @RequestBody dto: List<CheckingDto>
+    ): ResponseEntity<List<ToDoResponse>> {
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.checkTodoMonthYear(dto))
     }
 
     @DeleteMapping

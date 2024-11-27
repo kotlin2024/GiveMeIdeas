@@ -92,11 +92,30 @@ class PlannerService(
         return updatedPlans.map { it.toResponse() }
     }
 
-    fun checkTodoWeek(dto: CheckingDto): ToDoResponse {
-        val checkingPlan = plannerWeekRepository.findById(dto.id)
-            .orElseThrow { NoSuchElementException("오늘의 할 일이 존재하지 않습니다.") }
+    fun checkTodoWeek(dto: List<CheckingDto>): List<ToDoResponse> {
+        val checkingPlans = plannerWeekRepository.findAllById(dto.map { it.id })
 
-        checkingPlan.check = dto.check
-        return plannerWeekRepository.save(checkingPlan).toResponse()
+        val updatedPlans = checkingPlans.map { plan ->
+            val checkDto = dto.find { it.id == plan.id }
+            if (checkDto != null) {
+                plan.check = checkDto.check  // 체크 상태 업데이트
+            }
+            plannerWeekRepository.save(plan)
+        }
+        return updatedPlans.map { it.toResponse() }
+    }
+
+    fun checkTodoMonthYear(dto: List<CheckingDto>): List<ToDoResponse> {
+
+        val checkingPlans = plannerMonthYearRepository.findAllById(dto.map { it.id })
+        val updatedPlans = checkingPlans.map { plan ->
+            val checkDto = dto.find { it.id == plan.id }
+            if (checkDto != null) {
+                plan.check = checkDto.check  // 체크 상태 업데이트
+            }
+            plannerMonthYearRepository.save(plan)
+        }
+        return updatedPlans.map { it.toResponse() }
+
     }
 }
