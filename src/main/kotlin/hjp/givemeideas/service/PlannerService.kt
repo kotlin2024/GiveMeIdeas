@@ -16,6 +16,7 @@ import hjp.givemeideas.model.today.QueryDslPlannerRepository
 import hjp.givemeideas.model.week.PlannerWeekRepository
 import hjp.givemeideas.model.week.QueryDslPlannerWeekRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
@@ -29,6 +30,7 @@ class PlannerService(
 
     ) {
 
+    @Transactional(readOnly = false)
     fun createToDoToday(dto: CreatePlannerDto): ToDoResponse {
         return plannerTodayRepository.save(
             PlannerToday(
@@ -37,6 +39,7 @@ class PlannerService(
         ).toResponse()
     }
 
+    @Transactional(readOnly = false)
     fun createToDoWeek(dto: CreatePlannerDto): ToDoResponse {
         return plannerWeekRepository.save(
             PlannerWeek(
@@ -45,6 +48,7 @@ class PlannerService(
         ).toResponse()
     }
 
+    @Transactional(readOnly = false)
     fun createToDoMonthYear(dto: CreatePlannerMonthYearDto): ToDoResponse {
         if (dto.type.uppercase(Locale.getDefault()) == "MONTH") {
             return plannerMonthYearRepository.save(

@@ -14,7 +14,7 @@
 <header>
     <div class="image-wrapper">
         <img src="/img/green.jpg" alt="header 이미지">
-        <h1> Planner </h1>
+        <h1><a href="/index.html" style="text-decoration: none; color: inherit;">Planner</a></h1>
     </div>
     <nav>
         <ul>
@@ -52,5 +52,66 @@
 <footer>
     <p><small> Made by HJP Contact us :https://hjpkotlin2024.tistory.com/ </small></p>
 </footer>
+
+<script>
+    // 폼 제출 이벤트 리스너 추가
+    document.getElementById('todo-form').addEventListener('submit', function (event) {
+        event.preventDefault(); // 기본 제출 동작 중단
+
+        // 폼 데이터 가져오기
+        const when = document.getElementById('when').value;
+        const description = document.getElementById('description').value;
+
+        // 유효성 검사
+        if (!when || !description) {
+            alert('WHEN과 DESCRIPTION을 모두 입력해주세요.');
+            return;
+        }
+
+        // API URL 결정
+        let apiUrl = '';
+        if (when === 'today') {
+            apiUrl = 'http://localhost:8080/todo';
+        } else if (when === 'week') {
+            apiUrl = 'http://localhost:8080/todo/week';
+        } else if (when === 'month' || when === 'year') {
+            apiUrl = 'http://localhost:8080/todo/month_year';
+        }
+
+        // 데이터 포맷 결정
+        const requestData =
+            when === 'month' || when === 'year'
+                ? {type: when, description: description} // CreatePlannerMonthYearDto
+                : {description: description}; // CreatePlannerDto
+
+        // POST 요청 보내기
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('API 요청 실패');
+                }
+            })
+            .then((data) => {
+                alert('일정이 성공적으로 생성되었습니다!');
+                console.log(data); // 서버에서 반환된 데이터 확인
+                window.location.reload(); // 페이지 새로고침
+                // 폼 초기화
+                document.getElementById('todo-form').reset();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+
+
 </body>
 </html>

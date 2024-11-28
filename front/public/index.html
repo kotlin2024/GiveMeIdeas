@@ -15,7 +15,7 @@
 <header>
     <div class="image-wrapper">
         <img src="/img/green.jpg" alt="header 이미지">
-        <h1> Planner </h1>
+        <h1><a href="/index.html" style="text-decoration: none; color: inherit;">Planner</a></h1>
     </div>
 
     <nav>
@@ -64,6 +64,18 @@
 
         </div>
     </div>
+
+    <section id="progress-section">
+        <div class="progress-box">
+            <h3>금일<br>진행률:</h3>
+            <div class="percentage" id="today-progress">0%</div>
+        </div>
+        <div class="progress-box">
+            <h3>금주<br>진행률:</h3>
+            <div class="percentage" id="week-progress">0%</div>
+        </div>
+    </section>
+
 
 </main>
 
@@ -122,7 +134,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log("data updates successfully")
+                    alert('제출이 완료되었습니다!');
+                    location.reload();
                 })
                 .catch(error => console.error('Error updating to-dos:', error));
         } else {
@@ -177,8 +190,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log("data updates successfully");
-                    // TODO() 일정 업데이트 후 화면 새로 고침
+                    alert('제출이 완료되었습니다!');
+                    location.reload();
                 })
                 .catch(error => console.error('Error updating to-dos:', error));
         } else {
@@ -236,7 +249,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log("data updates successfully")
+                    alert('제출이 완료되었습니다!');
+                    location.reload();
                 })
                 .catch(error => console.error('Error updating to-dos:', error));
         } else {
@@ -294,7 +308,8 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log("data updates successfully")
+                    alert('제출이 완료되었습니다!');
+                    location.reload();
                 })
                 .catch(error => console.error('Error updating to-dos:', error));
         } else {
