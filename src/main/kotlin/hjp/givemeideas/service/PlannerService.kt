@@ -16,6 +16,7 @@ import hjp.givemeideas.model.today.QueryDslPlannerRepository
 import hjp.givemeideas.model.week.PlannerWeekRepository
 import hjp.givemeideas.model.week.QueryDslPlannerWeekRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
@@ -29,6 +30,7 @@ class PlannerService(
 
     ) {
 
+    @Transactional(readOnly = false)
     fun createToDoToday(dto: CreatePlannerDto): ToDoResponse {
         return plannerTodayRepository.save(
             PlannerToday(
@@ -37,6 +39,7 @@ class PlannerService(
         ).toResponse()
     }
 
+    @Transactional(readOnly = false)
     fun createToDoWeek(dto: CreatePlannerDto): ToDoResponse {
         return plannerWeekRepository.save(
             PlannerWeek(
@@ -45,6 +48,7 @@ class PlannerService(
         ).toResponse()
     }
 
+    @Transactional(readOnly = false)
     fun createToDoMonthYear(dto: CreatePlannerMonthYearDto): ToDoResponse {
         if (dto.type.uppercase(Locale.getDefault()) == "MONTH") {
             return plannerMonthYearRepository.save(
@@ -64,11 +68,11 @@ class PlannerService(
     }
 
     fun getTodayToDo(): List<ToDoResponse> {
-        return queryDslPlannerRepository.findAllTodayPlan().map { it.toResponse() }
+        return queryDslPlannerRepository.findAllTodayPlanOnlyFalse().map { it.toResponse() }
     }
 
     fun getWeekToDo(): List<ToDoResponse> {
-        return queryDslPlannerWeekRepository.findAllWeekPlan().map { it.toResponse() }
+        return queryDslPlannerWeekRepository.findAllWeekPlanOnlyFalse().map { it.toResponse() }
     }
 
     fun getMonthYearToDo(type: String): List<ToDoResponse> {
@@ -79,19 +83,56 @@ class PlannerService(
             queryDslMonthYear.findAllYearPlan().map { it.toResponse() }
     }
 
-    fun checkTodoToday(dto: CheckingDto): ToDoResponse {
-        val checkingPlan = plannerTodayRepository.findById(dto.id)
-            .orElseThrow { NoSuchElementException("오늘의 할 일이 존재하지 않습니다.") }
+    fun showProgress(type: String): Long {
 
-        checkingPlan.check = dto.check
-        return plannerTodayRepository.save(checkingPlan).toResponse()
+        var result: Long = 0
+
+        if (type.uppercase() == "TODAY") {
+            result = Math.round(queryDslPlannerRepository.findAllTodayPlanCount() * 100)
+        } else {
+            result = Math.round(queryDslPlannerWeekRepository.findAllWeekPlanCount() * 100)
+        }
+        return result
+
     }
 
-    fun checkTodoWeek(dto: CheckingDto): ToDoResponse {
-        val checkingPlan = plannerWeekRepository.findById(dto.id)
-            .orElseThrow { NoSuchElementException("오늘의 할 일이 존재하지 않습니다.") }
+    fun checkTodoToday(dto: List<CheckingDto>): List<ToDoResponse> {
+        val checkingPlans = plannerTodayRepository.findAllById(dto.map { it.id })
 
-        checkingPlan.check = dto.check
-        return plannerWeekRepository.save(checkingPlan).toResponse()
+        val updatedPlans = checkingPlans.map { plan ->
+            val checkDto = dto.find { it.id == plan.id }
+            if (checkDto != null) {
+                plan.check = checkDto.check  // 체크 상태 업데이트
+            }
+            plannerTodayRepository.save(plan)
+        }
+        return updatedPlans.map { it.toResponse() }
+    }
+
+    fun checkTodoWeek(dto: List<CheckingDto>): List<ToDoResponse> {
+        val checkingPlans = plannerWeekRepository.findAllById(dto.map { it.id })
+
+        val updatedPlans = checkingPlans.map { plan ->
+            val checkDto = dto.find { it.id == plan.id }
+            if (checkDto != null) {
+                plan.check = checkDto.check  // 체크 상태 업데이트
+            }
+            plannerWeekRepository.save(plan)
+        }
+        return updatedPlans.map { it.toResponse() }
+    }
+
+    fun checkTodoMonthYear(dto: List<CheckingDto>): List<ToDoResponse> {
+
+        val checkingPlans = plannerMonthYearRepository.findAllById(dto.map { it.id })
+        val updatedPlans = checkingPlans.map { plan ->
+            val checkDto = dto.find { it.id == plan.id }
+            if (checkDto != null) {
+                plan.check = checkDto.check  // 체크 상태 업데이트
+            }
+            plannerMonthYearRepository.save(plan)
+        }
+        return updatedPlans.map { it.toResponse() }
+
     }
 }

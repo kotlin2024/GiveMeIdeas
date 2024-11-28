@@ -1,0 +1,172 @@
+.irish-grover-regular {
+    font-family: "Irish Grover", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.image-wrapper > img {
+    height: 100px;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.image-wrapper {
+    position: relative;
+}
+
+.image-wrapper h1 {
+    position: absolute; /* 부모 요소 기준으로 배치 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: cyan;
+    font-size: 80px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-family: "Irish Grover", system-ui;
+}
+
+header nav ul {
+    display: flex;
+    justify-content: space-around;
+    background-color: lightblue;
+    color: darkgreen;
+    font-weight: bold;
+
+    :hover {
+        text-decoration: underline red solid;
+        color: blue;
+        transition-property: background-color;
+        transition-timing-function: ease-in-out;
+    }
+}
+
+body {
+    background: url("../img/leaf_background.jpg")
+}
+
+footer {
+    background-color: burlywood;
+    color: black;
+    text-align: center;
+}
+
+#planner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 50px;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+#planner h3 {
+    color: cyan;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+#today_plan, #week_plan, #month_plan, #year_plan {
+    width: 43%;
+    height: 200px;
+    background-color: darkslategray;
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+
+}
+
+input[type= "checkbox"] {
+    width: 16px;
+    height: 16px;
+    vertical-align: baseline;
+    margin-right: 4px;
+    appearance: auto;
+}
+
+section {
+    position: relative; /* 버튼을 해당 섹션 안에서 상대적으로 위치시킬 수 있게 함 */
+    padding-bottom: 50px; /* 버튼이 겹치지 않도록 섹션 하단에 공간 추가 */
+
+    button {
+        position: absolute; /* 절대 위치 지정 */
+        bottom: 10px; /* 섹션의 밑에서 10px 떨어지도록 설정 */
+        left: 50%; /* 가로 방향 가운데 */
+        transform: translateX(-50%); /* 정확히 가운데로 정렬 */
+        padding: 10px 20px; /* 버튼 내부 여백 */
+        font-size: 16px; /* 글자 크기 */
+        background-color: #4CAF50; /* 배경 색 (녹색) */
+        color: white; /* 글자 색 (하얀색) */
+        border: 2px solid #4CAF50; /* 테두리 설정 */
+        border-radius: 5px; /* 모서리 둥글게 */
+        cursor: pointer; /* 마우스 커서가 포인터로 변경 */
+        transition: background-color 0.3s, border-color 0.3s, transform 0.2s ease-in-out; /* scale 효과를 위한 transform */
+
+    }
+
+    button:hover {
+        background-color: cyan;
+        border-color: #45a049;
+        transform: translateX(-50%) scale(1.1); /* 버튼을 10% 확대 */
+    }
+
+    button:active {
+        transform: translateX(-50%) scale(0.95);
+        box-shadow: none; /* 눌렀을 때 그림자가 사라짐 */
+    }
+}
+
+/* Progress Section 전체 스타일 */
+#progress-section {
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: center;
+    justify-content: center;
+    height: auto; /* 높이 자동 조정 */
+    margin: 0 auto;
+    padding: 10px;
+}
+
+/* 개별 박스 스타일 */
+.progress-box {
+    background-color: #d8bfea;
+    border-radius: 15px;
+    width: 65%; /* 화면의 65% 폭 */
+    padding: 50px; /* 높이를 1.5배 늘린 크기 */
+    margin: 20px 0; /* 박스 간의 간격 */
+    display: flex;
+    justify-content: space-between; /* 좌측(금일 진행률)과 우측(퍼센트) 간의 공간 배분 */
+    align-items: center; /* 세로 방향 가운데 정렬 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+/* "금일 진행률" 텍스트 스타일 */
+.progress-box h3 {
+    color: #e91e63;
+    font-size: 3.5rem; /* 글자 크기 크게 */
+    margin: 0;
+    line-height: 1.2; /* 줄 간격 조정 */
+}
+
+/* 퍼센트 텍스트 스타일 */
+.progress-box .percentage {
+    color: #4caf50;
+    font-size: 4.5rem; /* 퍼센트 글자 크기 크게 */
+    font-weight: bold;
+    margin-left: 20px; /* 퍼센트와 텍스트 간의 간격 */
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    flex-grow: 1; /* 퍼센트가 중앙에 배치되도록 함 */
+}
+
+.text-color {
+    color: blue;
+}

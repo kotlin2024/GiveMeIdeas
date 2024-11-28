@@ -46,7 +46,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    runtimeOnly("org.postgresql:postgresql") // postgresql설치
+    runtimeOnly("org.postgresql:postgresql:42.6.0") // postgresql설치
 }
 
 kotlin {
