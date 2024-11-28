@@ -68,11 +68,11 @@ class PlannerService(
     }
 
     fun getTodayToDo(): List<ToDoResponse> {
-        return queryDslPlannerRepository.findAllTodayPlan().map { it.toResponse() }
+        return queryDslPlannerRepository.findAllTodayPlanOnlyFalse().map { it.toResponse() }
     }
 
     fun getWeekToDo(): List<ToDoResponse> {
-        return queryDslPlannerWeekRepository.findAllWeekPlan().map { it.toResponse() }
+        return queryDslPlannerWeekRepository.findAllWeekPlanOnlyFalse().map { it.toResponse() }
     }
 
     fun getMonthYearToDo(type: String): List<ToDoResponse> {
@@ -81,6 +81,19 @@ class PlannerService(
             queryDslMonthYear.findAllMonthPlan().map { it.toResponse() }
         else
             queryDslMonthYear.findAllYearPlan().map { it.toResponse() }
+    }
+
+    fun showProgress(type: String): Long {
+
+        var result: Long = 0
+
+        if (type.uppercase() == "TODAY") {
+            result = Math.round(queryDslPlannerRepository.findAllTodayPlanCount() * 100)
+        } else {
+            result = Math.round(queryDslPlannerWeekRepository.findAllWeekPlanCount() * 100)
+        }
+        return result
+
     }
 
     fun checkTodoToday(dto: List<CheckingDto>): List<ToDoResponse> {

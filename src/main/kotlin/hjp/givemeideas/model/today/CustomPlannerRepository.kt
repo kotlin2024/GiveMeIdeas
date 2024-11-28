@@ -4,6 +4,7 @@ import hjp.givemeideas.entity.PlannerToday
 
 interface CustomPlannerRepository {
 
-    fun findAllTodayPlan(): List<PlannerToday>
+    fun findAllTodayPlanOnlyFalse(): List<PlannerToday>
 
+    fun findAllTodayPlanCount(): Double
 }

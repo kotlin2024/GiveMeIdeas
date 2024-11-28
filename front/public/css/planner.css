@@ -166,3 +166,7 @@ section {
     align-items: center; /* 세로 중앙 정렬 */
     flex-grow: 1; /* 퍼센트가 중앙에 배치되도록 함 */
 }
+
+.text-color {
+    color: blue;
+}

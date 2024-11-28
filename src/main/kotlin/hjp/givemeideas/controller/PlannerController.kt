@@ -47,6 +47,11 @@ class PlannerController(
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.getMonthYearToDo(type))
     }
 
+    @GetMapping("/planner/progress")
+    fun showProgress(@RequestParam type: String): ResponseEntity<Long> {
+        return ResponseEntity.status(HttpStatus.OK).body(plannerService.showProgress(type))
+    }
+
     @PatchMapping("/planner/check/today")
     fun checkTodoToday(@RequestBody dto: List<CheckingDto>): ResponseEntity<List<ToDoResponse>> {
         return ResponseEntity.status(HttpStatus.OK).body(plannerService.checkTodoToday(dto))
