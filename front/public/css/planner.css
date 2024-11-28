@@ -170,3 +170,8 @@ section {
 .text-color {
     color: blue;
 }
+
+.row section ul li {
+    color: white;
+    font-weight: bold;
+}
