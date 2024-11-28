@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/img/체크-표시.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/destyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Irish+Grover&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/create_todo.css">
+    <title>일정 작성하기</title>
+</head>
+<body>
+<header>
+    <div class="image-wrapper">
+        <img src="/img/green.jpg" alt="header 이미지">
+        <h1><a href="/index.html" style="text-decoration: none; color: inherit;">Planner</a></h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="create_todo.html">일정 작성하기</a></li>
+            <li><a href="https://hjpkotlin2024.tistory.com/" target="_blank">블로그 바로가기</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div id="planner">
+        <section id="todo-form">
+            <h2>일정 작성하기</h2>
+            <form>
+                <div>
+                    <label for="when">WHEN:</label>
+                    <select id="when" name="when">
+                        <option value="" disabled selected>클릭!!</option>
+                        <option value="today">오늘</option>
+                        <option value="week">이번 주</option>
+                        <option value="month">이번 달</option>
+                        <option value="year">이번 년도</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="description">DESCRIPTION:</label>
+                    <textarea id="description" name="description" rows="4" placeholder="일정을 입력하세요"></textarea>
+                </div>
+                <button type="submit" id="submit-btn">SUBMIT</button>
+            </form>
+        </section>
+    </div>
+</main>
+
+<footer>
+    <p><small> Made by HJP Contact us :https://hjpkotlin2024.tistory.com/ </small></p>
+</footer>
+
+<script>
+    // 폼 제출 이벤트 리스너 추가
+    document.getElementById('todo-form').addEventListener('submit', function (event) {
+        event.preventDefault(); // 기본 제출 동작 중단
+
+        // 폼 데이터 가져오기
+        const when = document.getElementById('when').value;
+        const description = document.getElementById('description').value;
+
+        // 유효성 검사
+        if (!when || !description) {
+            alert('WHEN과 DESCRIPTION을 모두 입력해주세요.');
+            return;
+        }
+
+        // API URL 결정
+        let apiUrl = '';
+        if (when === 'today') {
+            apiUrl = 'http://localhost:8080/todo';
+        } else if (when === 'week') {
+            apiUrl = 'http://localhost:8080/todo/week';
+        } else if (when === 'month' || when === 'year') {
+            apiUrl = 'http://localhost:8080/todo/month_year';
+        }
+
+        // 데이터 포맷 결정
+        const requestData =
+            when === 'month' || when === 'year'
+                ? {type: when, description: description} // CreatePlannerMonthYearDto
+                : {description: description}; // CreatePlannerDto
+
+        // POST 요청 보내기
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('API 요청 실패');
+                }
+            })
+            .then((data) => {
+                alert('일정이 성공적으로 생성되었습니다!');
+                console.log(data); // 서버에서 반환된 데이터 확인
+                window.location.reload(); // 페이지 새로고침
+                // 폼 초기화
+                document.getElementById('todo-form').reset();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+
+
+</body>
+</html>
