@@ -9,6 +9,9 @@
 일정 작성하기 페이지
 ![](front/public/img/최종프론트사진_1.png)
 
+youtube 시연영상: https://www.youtube.com/watch?v=8NVZQB6EHCU
+
+
 ## 기능
 
 1. **일정 작성하기**:
